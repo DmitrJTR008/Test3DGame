@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>3D_VK</title>
+        <title>YA_ComeBackHome</title>
         <style>
             html, body {
                 width: 100%;
@@ -151,17 +151,17 @@
                     }
 
                     let unityLoader = document.createElement('script')
-                    unityLoader.src = 'Build/Build_3D_VK_Complete_Study_1.loader.js'
+                    unityLoader.src = 'Build/Test_1.loader.js'
                     unityLoader.onload = () => {
                         createUnityInstance(
                             canvas,
                             {
-                                dataUrl: 'Build/Build_3D_VK_Complete_Study_1.data',
-                                frameworkUrl: 'Build/Build_3D_VK_Complete_Study_1.framework.js',
-                                codeUrl: 'Build/Build_3D_VK_Complete_Study_1.wasm',
+                                dataUrl: 'Build/Test_1.data',
+                                frameworkUrl: 'Build/Test_1.framework.js',
+                                codeUrl: 'Build/Test_1.wasm',
                                 streamingAssetsUrl: 'StreamingAssets',
                                 companyName: 'DefaultCompany',
-                                productName: '3D_VK',
+                                productName: 'YA_ComeBackHome',
                                 productVersion: '0.1.0',
                                 // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
                                 // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
@@ -696,6 +696,35 @@
                     })
                     .catch(error => {
                         sendMessageToUnity('OnPaymentsGetPurchasesCompletedFailed', 'false')
+                    })
+            }
+
+            window.getIsRemoteConfigSupported = function() {
+                return bridge.remoteConfig.isSupported.toString()
+            }
+
+            window.remoteConfigGet = function(options) {
+                if (options) {
+                    options = JSON.parse(options)
+                } else {
+                    options = { clientFeatures: [] }
+                }
+
+                bridge.remoteConfig.get(options)
+                    .then(data => {
+                        let keys = Object.keys(data)
+                        let values = []
+
+                        for (let i = 0; i < keys.length; i++) {
+                            let name = keys[i]
+                            let value = data[name]
+                            values.push({ name, value })
+                        }
+
+                        sendMessageToUnity('OnRemoteConfigGetSuccess', JSON.stringify(values))
+                    })
+                    .catch(error => {
+                        sendMessageToUnity('OnRemoteConfigGetFailed', '')
                     })
             }
         </script>
