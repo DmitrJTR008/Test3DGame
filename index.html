@@ -151,14 +151,14 @@
                     }
 
                     let unityLoader = document.createElement('script')
-                    unityLoader.src = 'Build/Release_FixGame.loader.js'
+                    unityLoader.src = 'Build/AgainFix.loader.js'
                     unityLoader.onload = () => {
                         createUnityInstance(
                             canvas,
                             {
-                                dataUrl: 'Build/Release_FixGame.data',
-                                frameworkUrl: 'Build/Release_FixGame.framework.js',
-                                codeUrl: 'Build/Release_FixGame.wasm',
+                                dataUrl: 'Build/AgainFix.data',
+                                frameworkUrl: 'Build/AgainFix.framework.js',
+                                codeUrl: 'Build/AgainFix.wasm',
                                 streamingAssetsUrl: 'StreamingAssets',
                                 companyName: 'DefaultCompany',
                                 productName: 'YA_ComeBackHome',
